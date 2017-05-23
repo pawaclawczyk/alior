@@ -5,13 +5,20 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build:live",
-    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./index.ts"
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./index.ts",
+    "test": "mocha --compilers ts:ts-node/register test/**/*Test.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/chai": "^3.5.2",
+    "@types/chai-datetime": "0.0.30",
+    "@types/mocha": "^2.2.41",
     "@types/node": "^7.0.22",
+    "chai": "^3.5.0",
+    "chai-datetime": "^1.4.1",
+    "mocha": "^3.4.1",
     "nodemon": "^1.11.0",
     "ts-node": "^3.0.4",
     "typescript": "^2.3.3"
