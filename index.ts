@@ -3,6 +3,7 @@ import { Transform, TransformOptions, Writable } from "stream";
 import { decodeStream } from "iconv-lite";
 import * as parse from "csv-parse";
 import { createTransactionStream } from "./src/transactionSource";
+import { markTransactions } from "./src/transaction";
 
 // File with transactions from Alior -> Array<Transactions>
 type TransactionType = "share" | "dividend"
@@ -207,4 +208,4 @@ const transactionsCollector = new ToCollection();
 // app.pipe(new ConsoleWriter());
 // app.pipe(transactionsCollector).on("finish", () => console.log('First element' + transactionsCollector._collection[0].description));
 
-const app = createTransactionStream(historyFile).pipe(new ConsoleWriter());
+const app = createTransactionStream(historyFile).pipe(markTransactions).pipe(new ConsoleWriter());

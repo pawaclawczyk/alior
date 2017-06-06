@@ -1,3 +1,5 @@
+import { streamMap } from './utils';
+
 export type Transaction = {
     type: string
     date: Date
@@ -9,6 +11,50 @@ export type Transaction = {
 
 export const Transaction = {
     Type: {
-        UNKNOWN: 'Unknown'
+        UNKNOWN: 'UNKNOWN',
+        STOCKS: 'STOCKS',
+        BONDS: 'BONDS',
     }
 };
+
+const stocksTransactionMatcher = /NOT: ([\d]+) ZLC: ([\d]+) PW: ([\w]+)/;
+
+const markStockTransaction = (t: Transaction): Transaction => {
+
+    console.log('MST');
+    const matches = t.description.match(stocksTransactionMatcher);
+
+    if (null !== matches) {
+        const [, , , ISIN] = matches;
+
+        return {
+            type: Transaction.Type.STOCKS,
+            date: t.date,
+            description: t.description,
+            ISIN: ISIN,
+            amount: t.amount,
+            amountAsString: t.amountAsString
+        };
+    }
+
+    return t;
+};
+
+const bondsTransactionMatcher = /DP: ([0-9\-]+) ([\w]{12})/;
+
+const markBondTransaction = (t: Transaction): Transaction => {
+    const matches = t.description.match(bondsTransactionMatcher);
+
+    if (null !== matches) {
+        const [, , ISIN] = matches;
+
+        t.type = Transaction.Type.BONDS;
+        t.ISIN = ISIN
+    }
+
+    return t;
+};
+
+export const markTransactions = streamMap(markStockTransaction)
+    .pipe(streamMap(markBondTransaction))
+;
