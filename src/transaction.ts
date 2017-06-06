@@ -20,8 +20,6 @@ export const Transaction = {
 const stocksTransactionMatcher = /NOT: ([\d]+) ZLC: ([\d]+) PW: ([\w]+)/;
 
 const markStockTransaction = (t: Transaction): Transaction => {
-
-    console.log('MST');
     const matches = t.description.match(stocksTransactionMatcher);
 
     if (null !== matches) {
@@ -55,6 +53,7 @@ const markBondTransaction = (t: Transaction): Transaction => {
     return t;
 };
 
-export const markTransactions = streamMap(markStockTransaction)
-    .pipe(streamMap(markBondTransaction))
-;
+export const mbt = streamMap(markBondTransaction);
+export const mst = streamMap(markStockTransaction);
+
+export const markTransactions = mbt.pipe(mst);
