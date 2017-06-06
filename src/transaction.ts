@@ -1,4 +1,4 @@
-import { streamMap } from './utils';
+import {streamMap, streamFilter, streamReduce} from './utils';
 
 export type Transaction = {
     type: string
@@ -19,7 +19,7 @@ export const Transaction = {
 
 const stocksTransactionMatcher = /NOT: ([\d]+) ZLC: ([\d]+) PW: ([\w]+)/;
 
-const markStockTransaction = (t: Transaction): Transaction => {
+const markStock = (t: Transaction): Transaction => {
     const matches = t.description.match(stocksTransactionMatcher);
 
     if (null !== matches) {
@@ -40,7 +40,7 @@ const markStockTransaction = (t: Transaction): Transaction => {
 
 const bondsTransactionMatcher = /DP: ([0-9\-]+) ([\w]{12})/;
 
-const markBondTransaction = (t: Transaction): Transaction => {
+const markBond = (t: Transaction): Transaction => {
     const matches = t.description.match(bondsTransactionMatcher);
 
     if (null !== matches) {
@@ -53,7 +53,42 @@ const markBondTransaction = (t: Transaction): Transaction => {
     return t;
 };
 
-export const mbt = streamMap(markBondTransaction);
-export const mst = streamMap(markStockTransaction);
+const markRonsonDividend = (t: Transaction) => {
+    if ('Wypłata dywidendy RONSON EUROPE, kwota netto, podatek 15%.' === t.description) {
+        t.type = Transaction.Type.STOCKS;
+        t.ISIN = 'NL0006106007';
+    }
 
-export const markTransactions = mbt.pipe(mst);
+    return t;
+};
+
+const isUnknown = (t: Transaction): boolean => {
+    return t.type !== Transaction.Type.UNKNOWN;
+};
+
+const groupByISIN = (t: Transaction, z: { [key: string]: Array<Transaction> }): { [key: string]: Array<Transaction> } => {
+    if (!z.hasOwnProperty(t.ISIN)) {
+        z[t.ISIN] = Array();
+    }
+
+    z[t.ISIN].push(t);
+
+    return z;
+};
+
+type SecurityValue = { ISIN: string, value: number }
+
+const sumAmounts = (ts: Array<Transaction>): SecurityValue => {
+    return ts.reduce((acc: SecurityValue, t: Transaction): SecurityValue => ({
+        ISIN: t.ISIN,
+        value: acc.value + t.amount
+    }), {ISIN: '', value: 0});
+};
+
+export const markBondTransactions = streamMap(markBond);
+export const markStockTransactions = streamMap(markStock);
+export const markRonsonDividendTransactions = streamMap(markRonsonDividend);
+export const removeUnknownTransactions = streamFilter(isUnknown);
+export const groupTransactionsByISIN = streamReduce(groupByISIN, {});
+export const sumSecuritiesValue = streamMap(sumAmounts);
+

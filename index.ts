@@ -1,7 +1,10 @@
 import { createReadStream } from "fs";
 import { Writable } from "stream";
 import { createTransactionStream } from "./src/transactionSource";
-import {markTransactions, mbt, mst} from "./src/transaction";
+import {
+    markBondTransactions, markStockTransactions, removeUnknownTransactions,
+    markRonsonDividendTransactions, groupTransactionsByISIN, sumSecuritiesValue
+} from "./src/transaction";
 
 const historyFile = __dirname + '/var/data/history.csv';
 const history = createReadStream(historyFile);
@@ -18,5 +21,11 @@ class ConsoleWriter extends Writable {
     }
 }
 
-const app = createTransactionStream(historyFile).pipe(mbt).pipe(mst).pipe(new ConsoleWriter());
-// const app = createTransactionStream(historyFile).pipe(markTransactions).pipe(new ConsoleWriter());
+const app = createTransactionStream(historyFile)
+    .pipe(markBondTransactions)
+    .pipe(markStockTransactions)
+    .pipe(markRonsonDividendTransactions)
+    .pipe(removeUnknownTransactions)
+    .pipe(groupTransactionsByISIN)
+    .pipe(sumSecuritiesValue)
+    .pipe(new ConsoleWriter());
