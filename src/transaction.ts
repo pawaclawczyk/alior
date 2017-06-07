@@ -1,4 +1,4 @@
-import {streamMap, streamFilter, streamReduce} from './utils';
+import {streamMap, streamFilter, streamReduce, HashMap} from './utils';
 
 export type Transaction = {
     type: string
@@ -8,6 +8,13 @@ export type Transaction = {
     amount: number,
     amountAsString: string
 }
+
+type SecurityValue = {
+    ISIN: string,
+    value: number
+}
+type TransactionList = Array<Transaction>
+type GroupedTransactions = HashMap<TransactionList>
 
 export const Transaction = {
     Type: {
@@ -66,7 +73,7 @@ const isUnknown = (t: Transaction): boolean => {
     return t.type !== Transaction.Type.UNKNOWN;
 };
 
-const groupByISIN = (t: Transaction, z: { [key: string]: Array<Transaction> }): { [key: string]: Array<Transaction> } => {
+const groupByISIN = (t: Transaction, z: GroupedTransactions): GroupedTransactions => {
     if (!z.hasOwnProperty(t.ISIN)) {
         z[t.ISIN] = Array();
     }
@@ -76,13 +83,14 @@ const groupByISIN = (t: Transaction, z: { [key: string]: Array<Transaction> }): 
     return z;
 };
 
-type SecurityValue = { ISIN: string, value: number }
-
-const sumAmounts = (ts: Array<Transaction>): SecurityValue => {
-    return ts.reduce((acc: SecurityValue, t: Transaction): SecurityValue => ({
-        ISIN: t.ISIN,
-        value: acc.value + t.amount
-    }), {ISIN: '', value: 0});
+const sumAmounts = (ts: TransactionList): SecurityValue => {
+    return ts.reduce(
+        (acc: SecurityValue, t: Transaction): SecurityValue => ({
+            ISIN: t.ISIN,
+            value: acc.value + t.amount
+        }),
+        {ISIN: '', value: 0}
+    );
 };
 
 export const markBondTransactions = streamMap(markBond);
@@ -91,4 +99,3 @@ export const markRonsonDividendTransactions = streamMap(markRonsonDividend);
 export const removeUnknownTransactions = streamFilter(isUnknown);
 export const groupTransactionsByISIN = streamReduce(groupByISIN, {});
 export const sumSecuritiesValue = streamMap(sumAmounts);
-

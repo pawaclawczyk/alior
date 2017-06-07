@@ -1,5 +1,11 @@
 import { Transform, TransformOptions } from "stream";
 
+export type HashMap<T> = { [k: string]: T }
+
+export type Mapper<T, U> = (x: T) => U
+export type Filter<T> = (x: T) => boolean
+export type Reducer<T, U> = (x: T, z: U) => U
+
 class ObjectTransform extends Transform {
     constructor(opts?: TransformOptions) {
         const options = opts || {};
@@ -9,12 +15,12 @@ class ObjectTransform extends Transform {
     }
 }
 
-class FilterTransform extends ObjectTransform {
-    constructor(private p: Function, opts?: TransformOptions) {
+class FilterTransform<T> extends ObjectTransform {
+    constructor(private p: Filter<T>, opts?: TransformOptions) {
         super(opts);
     }
 
-    _transform(chunk: any, encoding: string, callback: Function): void {
+    _transform(chunk: T, encoding: string, callback: Function): void {
         if (this.p(chunk)) {
             this.push(chunk, encoding);
         }
@@ -23,23 +29,23 @@ class FilterTransform extends ObjectTransform {
     }
 }
 
-class MapTransform extends ObjectTransform {
-    constructor(private f: Function, opts?: TransformOptions) {
+class MapTransform<T, U> extends ObjectTransform {
+    constructor(private f: Mapper<T, U>, opts?: TransformOptions) {
         super(opts);
     };
 
-    _transform(chunk: any, encoding: string, callback: Function): void {
+    _transform(chunk: T, encoding: string, callback: Function): void {
         this.push(this.f(chunk));
         callback();
     }
 }
 
-class ReduceTransform extends ObjectTransform {
-    constructor(private r: Function, private z: any, private opts?: TransformOptions) {
+class ReduceTransform<T, U> extends ObjectTransform {
+    constructor(private r: Reducer<T, U>, private z: U, private opts?: TransformOptions) {
         super(opts);
     }
 
-    _transform(chunk: any, encoding: string, callback: Function): void {
+    _transform(chunk: T, encoding: string, callback: Function): void {
         this.z = this.r(chunk, this.z);
         callback();
     }
@@ -53,6 +59,6 @@ class ReduceTransform extends ObjectTransform {
     }
 }
 
-export const streamMap = (f: Function) => new MapTransform(f);
-export const streamFilter = (p: Function) => new FilterTransform(p);
-export const streamReduce = <T>(r: Function, z: T) => new ReduceTransform(r, z);
+export const streamMap = <T, U>(f: Mapper<T, U>) => new MapTransform(f);
+export const streamFilter = <T>(p: Filter<T>) => new FilterTransform(p);
+export const streamReduce = <T, U>(r: Reducer<T, U>, z: U) => new ReduceTransform(r, z);
