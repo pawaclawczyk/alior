@@ -1,6 +1,18 @@
-import { Transform, TransformOptions } from "stream";
+import { Transform, TransformOptions, Writable } from "stream";
 
 export type HashMap<T> = { [k: string]: T }
+
+export class ConsoleWriter extends Writable {
+    constructor() {
+        super({objectMode: true});
+    }
+
+    _write(chunk: any, encoding: string, callback: Function): void {
+        console.log(chunk);
+
+        callback();
+    }
+}
 
 export type Mapper<T, U> = (x: T) => U
 export type Filter<T> = (x: T) => boolean

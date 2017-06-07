@@ -1,4 +1,5 @@
 import {streamMap, streamFilter, streamReduce, HashMap} from './utils';
+import ReadableStream = NodeJS.ReadableStream;
 
 export type Transaction = {
     type: string
@@ -69,7 +70,7 @@ const markRonsonDividend = (t: Transaction) => {
     return t;
 };
 
-const isUnknown = (t: Transaction): boolean => {
+const hasKnownType = (t: Transaction): boolean => {
     return t.type !== Transaction.Type.UNKNOWN;
 };
 
@@ -93,9 +94,16 @@ const sumAmounts = (ts: TransactionList): SecurityValue => {
     );
 };
 
-export const markBondTransactions = streamMap(markBond);
-export const markStockTransactions = streamMap(markStock);
-export const markRonsonDividendTransactions = streamMap(markRonsonDividend);
-export const removeUnknownTransactions = streamFilter(isUnknown);
-export const groupTransactionsByISIN = streamReduce(groupByISIN, {});
-export const sumSecuritiesValue = streamMap(sumAmounts);
+export function markTransactions(input: NodeJS.ReadableStream): NodeJS.ReadableStream {
+    return input
+        .pipe(streamMap(markBond))
+        .pipe(streamMap(markStock))
+        .pipe(streamMap(markRonsonDividend))
+}
+
+export function profitPerSecurity(input: NodeJS.ReadableStream): NodeJS.ReadableStream {
+    return input
+        .pipe(streamFilter(hasKnownType))
+        .pipe(streamReduce(groupByISIN, {}))
+        .pipe(streamMap(sumAmounts))
+}
