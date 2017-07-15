@@ -1,0 +1,61 @@
+Data;Typ operacji;Opis;Kwota
+01-01-2017;"";"Saldo pocz¹tkowe";0,0
+03-01-2017;"Obci¹¿enia";"NOT: 8371841 ZLC: 8607866 PW: PLPKN0000018";-684,0
+03-01-2017;"Obci¹¿enia";"NOT: 8371841 ZLC: 8607866 PW: PLPKN0000018";-3,0
+03-01-2017;"";"Saldo na koniec dnia";1304,94
+04-01-2017;"Obci¹¿enia";"NOT: 8377136 ZLC: 8613746 PW: PLPEKAO00016";-1300,0
+04-01-2017;"Obci¹¿enia";"NOT: 8377136 ZLC: 8613746 PW: PLPEKAO00016";-4,94
+04-01-2017;"";"Saldo na koniec dnia";0,0
+20-02-2017;"Obci¹¿enia";"NOT: 8543015 ZLC: 8778331 PW: PLMCSFT00018";-1007,5
+20-02-2017;"Obci¹¿enia";"NOT: 8543015 ZLC: 8778331 PW: PLMCSFT00018";-3,83
+20-02-2017;"";"Saldo na koniec dnia";0,0
+22-02-2017;"Obci¹¿enia";"NOT: 8558532 ZLC: 8794195 PW: NL0006106007";-925,0
+22-02-2017;"Obci¹¿enia";"NOT: 8558532 ZLC: 8794195 PW: NL0006106007";-3,52
+22-02-2017;"";"Saldo na koniec dnia";0,0
+13-03-2017;"Obci¹¿enia";"NOT: 8659484 ZLC: 8885981 PW: PL2CPRT00071";-1871,8
+13-03-2017;"Obci¹¿enia";"NOT: 8659484 ZLC: 8885981 PW: PL2CPRT00071";-3,56
+13-03-2017;"";"Saldo na koniec dnia";0,0
+21-03-2017;"Obci¹¿enia";"NOT: 8700106 ZLC: 8919801 PW: NL0006106007";-186,0
+21-03-2017;"Obci¹¿enia";"NOT: 8700106 ZLC: 8919801 PW: NL0006106007";-3,0
+21-03-2017;"";"Saldo na koniec dnia";0,0
+23-03-2017;"Uznania";"Wyp³ata dywidendy RONSON EUROPE, kwota netto, podatek 15%.";38,25
+23-03-2017;"";"Saldo na koniec dnia";0,0
+05-05-2017;"Uznania";"Dywidenda: DP: 2017-04-12 PLMCSFT00018 (MCLOGIC);";81,25
+05-05-2017;"Obci¹¿enia";"Podatek od dywidendy: DP: 2017-04-12 PLMCSFT00018 (MCLOGIC);";-15,0
+05-05-2017;"";"Saldo na koniec dnia";0,0
+11-05-2017;"Uznania";"NOT: 8906470 ZLC: 9124451 PW: PLMCSFT00018";1156,0
+11-05-2017;"Obci¹¿enia";"NOT: 8906470 ZLC: 9124451 PW: PLMCSFT00018";-4,39
+11-05-2017;"Obci¹¿enia";"NOT: 8910739 ZLC: 9129907 PW: PLBUDMX00013";-838,8
+11-05-2017;"Obci¹¿enia";"NOT: 8910739 ZLC: 9129907 PW: PLBUDMX00013";-3,19
+11-05-2017;"Obci¹¿enia";"NOT: 8910740 ZLC: 9129907 PW: PLBUDMX00013";-1118,4
+11-05-2017;"Obci¹¿enia";"NOT: 8910740 ZLC: 9129907 PW: PLBUDMX00013";-4,25
+11-05-2017;"Obci¹¿enia";"NOT: 8910973 ZLC: 9130158 PW: PLSOFTB00016";-1375,0
+11-05-2017;"Obci¹¿enia";"NOT: 8910973 ZLC: 9130158 PW: PLSOFTB00016";-5,23
+11-05-2017;"";"Saldo na koniec dnia";0,0
+15-05-2017;"Uznania";"Odsetki od obligacji: DP: 2017-05-04 PL2CPRT00071 (2CP0517);";51,2
+15-05-2017;"Obci¹¿enia";"Podatek od odsetek od obligacji: DP: 2017-05-04 PL2CPRT00071 (2CP0517);";-9,73
+15-05-2017;"Uznania";"Wykup obligacji: DP: 2017-05-04 PL2CPRT00071 (2CP0517);";1422,5
+15-05-2017;"Obci¹¿enia";"Podatek od wykupu obligacji: DP: 2017-05-04 PL2CPRT00071 (2CP0517);";-23,69
+15-05-2017;"";"Saldo na koniec dnia";0,0
+17-05-2017;"Uznania";"Wykup obligacji: DP: 2017-05-04 PL2CPRT00071 (2CP0517);";577,5
+17-05-2017;"";"Saldo na koniec dnia";0,0
+18-05-2017;"Obci¹¿enia";"NOT: 8944005 ZLC: 9161478 PW: PLNETIA00014";-996,6
+18-05-2017;"Obci¹¿enia";"NOT: 8944005 ZLC: 9161478 PW: PLNETIA00014";-3,79
+18-05-2017;"Obci¹¿enia";"NOT: 8944334 ZLC: 9161501 PW: PLERTEL00011";-990,0
+18-05-2017;"Obci¹¿enia";"NOT: 8944334 ZLC: 9161501 PW: PLERTEL00011";-3,76
+18-05-2017;"";"Saldo na koniec dnia";0,0
+01-06-2017;"Uznania";"Dywidenda: DP: 2017-05-16 PLSOFTB00016 (ASSECOPOL);";75,25
+01-06-2017;"Obci¹¿enia";"Podatek od dywidendy: DP: 2017-05-16 PLSOFTB00016 (ASSECOPOL);";-14,0
+01-06-2017;"";"Saldo na koniec dnia";0,0
+05-06-2017;"Uznania";"Dywidenda: DP: 2017-05-19 PLBUDMX00013 (BUDIMEX);";104,93
+05-06-2017;"Obci¹¿enia";"Podatek od dywidendy: DP: 2017-05-19 PLBUDMX00013 (BUDIMEX);";-20,0
+05-06-2017;"";"Saldo na koniec dnia";0,0
+30-06-2017;"Uznania";"Dywidenda: DP: 2017-06-15 PLERTEL00011 (EUROTEL);";85,5
+30-06-2017;"Obci¹¿enia";"Podatek od dywidendy: DP: 2017-06-15 PLERTEL00011 (EUROTEL);";-16,0
+30-06-2017;"";"Saldo na koniec dnia";0,0
+06-07-2017;"Uznania";"Dywidenda: DP: 2017-06-09 PLNETIA00014 (NETIA);";83,6
+06-07-2017;"Obci¹¿enia";"Podatek od dywidendy: DP: 2017-06-09 PLNETIA00014 (NETIA);";-16,0
+06-07-2017;"Uznania";"Dywidenda: DP: 2017-06-21 PLPEKAO00016 (PEKAO);";86,8
+06-07-2017;"Obci¹¿enia";"Podatek od dywidendy: DP: 2017-06-21 PLPEKAO00016 (PEKAO);";-17,0
+06-07-2017;"";"Saldo na koniec dnia";0,0
+14-07-2017;"";"Saldo koñcowe";0,0

@@ -1,3 +1,11 @@
-console.log('Hello World!');
+import { createTransactionStream } from "./src/transactionSource";
+import { markTransactions, profitPerSecurity } from "./src/transaction";
+import { ConsoleWriter } from "./src/utils";
 
-console.log('Hello Human!');
+const historyFile = __dirname + '/var/data/history.csv';
+
+const transactionInput = createTransactionStream(historyFile);
+const transactions = markTransactions(transactionInput);
+const profits = profitPerSecurity(transactions);
+
+profits.pipe(new ConsoleWriter());
