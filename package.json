@@ -14,6 +14,7 @@
   "devDependencies": {
     "@types/chai": "^3.5.2",
     "@types/chai-datetime": "0.0.30",
+    "@types/csv-parse": "^1.1.8",
     "@types/mocha": "^2.2.41",
     "@types/node": "^7.0.22",
     "chai": "^3.5.0",
@@ -24,6 +25,7 @@
     "typescript": "^2.3.3"
   },
   "dependencies": {
+    "csv-parse": "^1.2.0",
     "iconv-lite": "^0.4.17"
   }
 }
